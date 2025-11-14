@@ -208,7 +208,7 @@ jobs:
           echo "Created catalog PR: ${PR_URL}"
       
       - name: Comment on utils PR
-        if: steps.push-changes.outputs.has_changes == 'true'
+        if: steps.push-changes.outputs.has_changes == 'true' && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -295,7 +295,7 @@ jobs:
           exit 1
       
       - name: Update utils PR status
-        if: always() && steps.push-changes.outputs.has_changes == 'true'
+        if: always() && steps.push-changes.outputs.has_changes == 'true' && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
